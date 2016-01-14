@@ -1,0 +1,35 @@
+{
+  "name": "pluralsight-react-relay-graphql-flux",
+  "version": "1.0.0",
+  "description": "Pluralisight tutorial",
+  "scripts": {
+    "start": "babel-node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/debugpoint136/pluralsight-react-relay-graphql-flux.git"
+  },
+  "keywords": [
+    "Relay",
+    "React",
+    "GraphQL"
+  ],
+  "author": "Deepak Purushotham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/debugpoint136/pluralsight-react-relay-graphql-flux/issues"
+  },
+  "homepage": "https://github.com/debugpoint136/pluralsight-react-relay-graphql-flux#readme",
+  "dependencies": {
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "events": "^1.1.0",
+    "express": "^4.13.3",
+    "flux": "^2.1.1",
+    "jquery": "^2.2.0",
+    "mongodb": "^2.1.4",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6"
+  }
+}
