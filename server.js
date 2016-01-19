@@ -1,4 +1,7 @@
 import express from 'express';
+import schema from './data/schema';
+import GraphQLHTTP from 'express-graphql';
+
 import { MongoClient } from 'mongodb';
 
 // export MONGO_URL=mongodb://dbuser:dbpassword@ds051913.mongolab.com:51913/playground
@@ -6,8 +9,11 @@ import { MongoClient } from 'mongodb';
 let app = express();
 
 app.use(express.static('public'));
-app.get('/', (req, res) => res.send("Hello Express!"));
 
+app.use('/graphql', GraphQLHTTP({
+    schema,
+    graphiql: true
+}));
 
 let db;
 
@@ -25,4 +31,4 @@ app.get("/data/players", (req, res) => {
          if(err) throw err;
          res.json( players );
      });
-})
+});
