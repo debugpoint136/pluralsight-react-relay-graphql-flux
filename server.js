@@ -10,17 +10,18 @@ let app = express();
 
 app.use(express.static('public'));
 
-app.use('/graphql', GraphQLHTTP({
-    schema,
-    graphiql: true
-}));
-
 let db;
 
 MongoClient.connect(process.env.MONGO_URL, (error, database) => {
    if ( error ) throw error;
 
     db = database;
+
+    app.use('/graphql', GraphQLHTTP({
+        schema: schema(db),
+        graphiql: true
+    }));
+
     app.listen(3000, () => {
         console.log("Listening on port 3000 ...");
     });

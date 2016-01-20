@@ -2,35 +2,53 @@ import {
     GraphQLSchema,
     GraphQLObjectType,
     GraphQLInt,
-    GraphQLString
+    GraphQLString,
+    GraphQLList
 } from 'graphql';
 
-let counter = 42;
 
-let schema = new GraphQLSchema({
-   query: new GraphQLObjectType({
-       name: 'Query',
-       fields: () => ({
-           counter: {
-               type: GraphQLInt,
-               resolve: () => counter
-           },
-           message: {
-               type: GraphQLString,
-               resolve: () => "Hello GraphQL!"
-           }
-       })
-   }),
+let Schema = (db) => {
 
-    mutation: new GraphQLObjectType({
-        name: 'Mutation',
+    let playerType = new GraphQLObjectType({
+        name: 'Player',
         fields: () => ({
-            incrementCounter: {
-                type: GraphQLInt,
-                resolve: () => ++counter
-            }
+            _id: {type: GraphQLString},
+            firstname: {type: GraphQLString},
+            lastname: {type: GraphQLString},
+            address: {type: GraphQLString}
         })
-    })
-});
+    });
 
-export default schema;
+    let schema = new GraphQLSchema({
+        query: new GraphQLObjectType({
+            name: 'Query',
+            fields: () => ({
+                players: {
+                    type: new GraphQLList(playerType),
+                    resolve: () =>
+                        db.collection("people").find({}).toArray()
+                     // Read from mongo
+                },
+                message: {
+                    type: GraphQLString,
+                    resolve: () => "Hello GraphQL!"
+                }
+            })
+        })
+        // Example Mutation
+        /*
+         mutation: new GraphQLObjectType({
+         name: 'Mutation',
+         fields: () => ({
+         incrementCounter: {
+         type: GraphQLInt,
+         resolve: () => ++counter
+         }
+         })
+         })*/
+    });
+
+    return schema
+};
+
+export default Schema;
